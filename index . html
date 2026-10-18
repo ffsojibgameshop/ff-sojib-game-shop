@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FF SOJIB GAME SHOP</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10101d;color:white;font-family:Arial,sans-serif}
+header{text-align:center;padding:24px 12px;background:#19192d;border-bottom:2px solid #ffb000}
+header h1{color:#ffb000;margin:0 0 8px}
+header p{margin:0;color:#ddd}
+main{max-width:650px;margin:20px auto;padding:15px}
+.card{background:#1b1b30;border:1px solid #393955;border-radius:14px;padding:18px;margin-bottom:16px}
+h2{color:#ffc247;margin-top:0}
+.packages{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button,.package{cursor:pointer;border:1px solid #ffb000;border-radius:9px;padding:13px;background:#292941;color:white;font-size:15px}
+.package.selected{background:#ffb000;color:#151515;font-weight:bold}
+input,select{width:100%;padding:13px;margin:7px 0 14px;border-radius:8px;border:1px solid #555;background:#10101d;color:white}
+.submit{width:100%;background:#ffb000;color:#111;font-weight:bold;border:0}
+.note{font-size:13px;color:#ccc;line-height:1.6}
+footer{text-align:center;padding:22px;color:#aaa;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h1>🔥 FF SOJIB GAME SHOP</h1>
+<p>Free Fire Diamond Top Up</p>
+</header>
+<main>
+<div class="card">
+<h2>💎 ডায়মন্ড প্যাকেজ বেছে নাও</h2>
+<div class="packages" id="packages"></div>
+<p id="price">একটি প্যাকেজ নির্বাচন করো</p>
+</div>
+<div class="card">
+<h2>🧾 অর্ডার তথ্য</h2>
+<form id="orderForm">
+<label>Player UID</label>
+<input id="uid" required placeholder="তোমার Free Fire UID">
+<label>পেমেন্ট মাধ্যম</label>
+<select id="payment">
+<option>bKash</option><option>Nagad</option><option>Rocket</option>
+</select>
+<label>যে নম্বরে টাকা পাঠিয়েছ</label>
+<input id="sender" required placeholder="পেমেন্ট করা মোবাইল নম্বর">
+<label>Transaction ID</label>
+<input id="trx" required placeholder="TrxID লিখো">
+<button class="submit" type="submit">অর্ডার তথ্য প্রস্তুত করো</button>
+</form>
+<p class="note">পেমেন্ট করার আগে দোকানের মালিকের কাছ থেকে সঠিক নম্বর ও মূল্য নিশ্চিত করো। এই ডেমোতে অর্ডার অনলাইনে জমা হয় না।</p>
+</div>
+<div class="card">
+<h2>📞 যোগাযোগ</h2>
+<p>অর্ডার দেওয়ার আগে মূল্য ও পেমেন্ট নম্বর দোকান থেকে নিশ্চিত করে নাও।</p>
+</div>
+</main>
+<footer>© FF SOJIB GAME SHOP</footer>
+<script>
+const items=[
+{name:"25 Diamonds",price:25},
+{name:"50 Diamonds",price:45},
+{name:"115 Diamonds",price:90},
+{name:"240 Diamonds",price:180},
+{name:"610 Diamonds",price:440},
+{name:"1240 Diamonds",price:850}
+];
+let chosen=null;
+const container=document.getElementById("packages");
+items.forEach(item=>{
+ const b=document.createElement("button");
+ b.className="package";
+ b.textContent=item.name+" — ৳"+item.price;
+ b.onclick=()=>{
+  chosen=item;
+  document.querySelectorAll(".package").forEach(x=>x.classList.remove("selected"));
+  b.classList.add("selected");
+  document.getElementById("price").textContent="নির্বাচিত: "+item.name+" | মূল্য: ৳"+item.price;
+ };
+ container.appendChild(b);
+});
+document.getElementById("orderForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ if(!chosen){alert("আগে একটি ডায়মন্ড প্যাকেজ নির্বাচন করো");return}
+ const message="ডেমো অর্ডার তথ্য\\nপ্যাকেজ: "+chosen.name+"\\nমূল্য: ৳"+chosen.price+"\\nUID: "+document.getElementById("uid").value+"\\nপেমেন্ট: "+document.getElementById("payment").value+"\\nপ্রেরকের নম্বর: "+document.getElementById("sender").value+"\\nTrxID: "+document.getElementById("trx").value+"\\n\\nএই অর্ডার অনলাইনে জমা হয়নি।";
+ alert(message);
+});
+</script>
+</body>
+</html>
